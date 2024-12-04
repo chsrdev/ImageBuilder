@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ImageBuilderPlugin
 Build an image from URL in minecraft world
 
@@ -23,7 +22,3 @@ Build an image from URL in minecraft world
 **/build (url) 4**
 
 ![](https://i.ibb.co/YpWc1nC/2024-12-04-21-11-22-4-K.png)
-=======
-# ImageBuilder
-Minecraft plugin for build an image in a minecraft world
->>>>>>> f510c98c7ed093ee0ee88a4ed4e2235d807cb246
