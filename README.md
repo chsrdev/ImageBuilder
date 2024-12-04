@@ -2,6 +2,7 @@
 Build an image from URL in minecraft world
 
 **Images that are too large may crash the server!**
+
 **/build <image-url\> <step-reduce(1 by default)>** - build an image near to you
 ! step-reduce can be a float number
 
