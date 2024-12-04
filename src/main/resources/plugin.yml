@@ -1,0 +1,9 @@
+name: ImageBuilder
+version: '1.0'
+main: dev.chsr.imageBuilder.ImageBuilder
+api-version: '1.21'
+authors: [ chaser ]
+description: Image builder plugin for minecraft
+commands:
+  build:
+    usage: /build <img-url>
