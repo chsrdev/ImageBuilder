@@ -17,7 +17,7 @@ Build an image from URL in minecraft world
 
 **/build (url) 2**
 
-![](https://i.ibb.co/27xbQ5D/2024-12-04-21-10-42-4-K.png)
+![](https://i.ibb.co/m4NqHnV/2024-12-04-22-16-29-4-K.png)
 
 
 **/build (url) 4**
