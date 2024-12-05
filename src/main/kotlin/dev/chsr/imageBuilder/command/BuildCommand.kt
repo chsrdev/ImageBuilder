@@ -81,7 +81,7 @@ fun getRGBComponents(rgb: Int): Triple<Int, Int, Int> {
 
 class BuildCommand : CommandExecutor {
     override fun onCommand(sender: CommandSender, p1: Command, p2: String, args: Array<out String>): Boolean {
-        if ((sender as Player).location.y > 319 && sender.location.y < 0){
+        if ((sender as Player).location.y > 319 || sender.location.y < 0) {
             sender.sendMessage("§cX coordinate must be between 0 and 319")
             return true
         }
@@ -91,10 +91,9 @@ class BuildCommand : CommandExecutor {
         }
         try {
             val imageURL = URI(args[0]).toURL()
-            val stepReduce = if (args.size >= 2)
+            val stepReduce = if (args.size >= 2 && (args[1].toFloatOrNull() ?: 1).toFloat() >= 1)
                 (args[1].toFloatOrNull() ?: 1).toFloat()
-            else
-                1f
+            else 1f
             val image = ImageIO.read(imageURL)
             if (image == null) {
                 sender.sendMessage("§cIncorrect URL")
@@ -112,26 +111,34 @@ class BuildCommand : CommandExecutor {
             val step = if (max != 0) max else 1
             sender.sendMessage("§aImage size: §b${image.width}x${image.height}")
             sender.sendMessage("§aStep: §b$step")
-            sender.sendMessage("§aImage size in game: §b${image.width/step}x${image.height/step}")
-            for (y in 0 + 5..<image.height step (step)) {
-                for (x in 0 + 5..<image.width step (step)) {
-                    var rSum = 0
-                    var gSum = 0
-                    var bSum = 0
-                    var count = 0
-                    for (dY in -1..1) {
-                        for (dX in -1..1) {
-                            if (x + dX < image.width - 2 && x + dX > 0 && y + dY < image.height - 2 && y + dY > 0) {
-                                val rgb = getRGBComponents(image.getRGB(x + dY, y + dX))
-                                rSum += rgb.first
-                                gSum += rgb.second
-                                bSum += rgb.third
-                                count++
+            sender.sendMessage("§aImage size in game: §b${image.width / step}x${image.height / step}")
+            for (y in 0..<image.height step (step)) {
+                for (x in 0..<image.width step (step)) {
+                    var rgbMean: Triple<Int, Int, Int>
+                    if (step == 1) {
+                        val rgb = getRGBComponents(image.getRGB(x, y))
+                        rgbMean = Triple(rgb.first, rgb.second, rgb.third)
+                    } else {
+                        var rSum = 0
+                        var gSum = 0
+                        var bSum = 0
+                        var count = 0
+                        for (dY in -1..1) {
+                            for (dX in -step+1..<step) {
+                                try {
+                                    val rgb = getRGBComponents(image.getRGB(x + dY, y + dX))
+                                    rSum += rgb.first
+                                    gSum += rgb.second
+                                    bSum += rgb.third
+                                    count++
+                                } catch (e: Exception) {
+                                    continue
+                                }
                             }
                         }
+                        count = if (count != 0) count else 1
+                        rgbMean = Triple(rSum / count, gSum / count, bSum / count)
                     }
-                    count = if (count != 0) count else 1
-                    val rgbMean = Triple(rSum / count, gSum / count, bSum / count)
                     val wool = findNearestWoolColor(rgbMean.first, rgbMean.second, rgbMean.third)
                     Location(mcWorld, mcX, mcY, mcZ).block.type = wool
                     mcX++
