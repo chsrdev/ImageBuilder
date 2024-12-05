@@ -1,8 +1,8 @@
-<<<<<<< HEAD
 # ImageBuilderPlugin
 Build an image from URL in minecraft world
 
 **Images that are too large may crash the server!**
+
 **/build <image-url\> <step-reduce(1 by default)>** - build an image near to you
 ! step-reduce can be a float number
 
@@ -17,13 +17,9 @@ Build an image from URL in minecraft world
 
 **/build (url) 2**
 
-![](https://i.ibb.co/27xbQ5D/2024-12-04-21-10-42-4-K.png)
+![](https://i.ibb.co/m4NqHnV/2024-12-04-22-16-29-4-K.png)
 
 
 **/build (url) 4**
 
 ![](https://i.ibb.co/YpWc1nC/2024-12-04-21-11-22-4-K.png)
-=======
-# ImageBuilder
-Minecraft plugin for build an image in a minecraft world
->>>>>>> f510c98c7ed093ee0ee88a4ed4e2235d807cb246
